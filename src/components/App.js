@@ -42,10 +42,17 @@ class App extends Component {
   }
 
   createPost(text) {
-    let promise =axios.post('https://practiceapi.devmountain.com/api/posts', { text })
+    let promise =axios.post('https://practiceapi.devmountain.com/api/posts', {text})
     promise.then(response => {
       this.setState({posts: response.data});
     });
+  }
+
+  searchPosts(text){
+    let promise =axios.get(`https://practiceapi.devmountain.com/api/posts/filter?text=${text}`)
+    promise.then(response => {
+      this.setState({posts: response.data})
+    })
   }
 
   render() {
@@ -53,7 +60,7 @@ class App extends Component {
 
     return (
       <div className="App__parent">
-        <Header />
+        <Header searchPostsFn={this.searchPosts}/>
 
         <section className="App__content">
 
